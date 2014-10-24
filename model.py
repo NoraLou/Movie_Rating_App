@@ -14,10 +14,11 @@ class Users(Base):
     __tablename__ = 'users'
 
     user_id = Column(Integer, primary_key = True)
-    email = Column(String(64), nullable = True)
-    password = Column(String(64), nullable = True)
-    age = Column(Integer, nullable=True)
+    age = Column(Integer, nullable = True)
+    gender = Column(String(64), nullable = True)
+    occupation = Column(String(64), nullable=True) 
     zipcode = Column(String(15), nullable=True)
+
 
 class Movies(Base):
     __tablename__ = 'movies'
@@ -48,7 +49,9 @@ def connect():
 
 def main():
     """In case we need this for something"""
-    pass
+
+    engine = create_engine("sqlite:///ratings.db", echo=True)
+    Base.metadata.create_all(engine)
 
 
 if __name__ == "__main__":

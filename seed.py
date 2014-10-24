@@ -1,11 +1,24 @@
-import model
+import model 
 import csv
 
 def load_users(session):
     # use u.user
-     # user id | age O | gender 0| occupation 0 | zip code 0| username | password 
-     # The user ids are the ones used in the u.data data set.
-    pass
+    f1 = csv.reader(open("./seed_data/u.user"), delimiter="|")
+
+    for row in f1:
+
+        # '7', 'M', 'administrator', '57', '91344'
+
+        user = model.Users()
+        user.user_id = int(row[0])
+        user.age = int(row[1])
+        user.gender = row[2]
+        user.occupation = row[3]
+        user.zipcode = row[4]
+
+        session.add(user)
+
+    session.commit()
 
 def load_movies(session):
     # use u.item
@@ -24,11 +37,17 @@ def load_ratings(session):
     # u.data columns user id | item id | rating | timestam
     pass
 
-def main(session):
+def main():
     # You'll call each of the load_* functions with the session as an argument
-    pass
     
+    load_users(session)
+
 
 if __name__ == "__main__":
-    s= model.connect()
-    main(s)
+    session = model.connect()
+    main()
+    
+
+    
+
+

@@ -10,28 +10,29 @@ Base = declarative_base()
 
 ### Class declarations go here
 
-class Users(Base):
+class User(Base):
     __tablename__ = 'users'
 
-    user_id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key = True, autoincrement=False)
     age = Column(Integer, nullable = True)
     gender = Column(String(64), nullable = True)
     occupation = Column(String(64), nullable=True) 
     zipcode = Column(String(15), nullable=True)
 
 
-class Movies(Base):
+class Movie(Base):
     __tablename__ = 'movies'
 
-    movie_id = Column(Integer, primary_key = True)
+    id = Column(Integer, primary_key = True, autoincrement=False)
     movie_title = Column(String(64))
     release_date = Column(Integer)
 
-class Ratings(Base):
+class Rating(Base):
     __tablename__ = 'ratings'
 
-    user_id = Column(Integer, primary_key = True)
-    item_id = Column(Integer, ForeignKey('movies.movie_id'))
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    movie_id = Column(Integer, ForeignKey('movies.id'))
     rating = Column(Integer, nullable=True)
     timestamp = Column(Integer)
 
@@ -44,8 +45,6 @@ def connect():
 
     return Session()
 
-
-### End class declarations
 
 def main():
     """In case we need this for something"""

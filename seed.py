@@ -57,9 +57,6 @@ def load_ratings(session):
     session.commit()
 
 
-
-
-
 def main():
     # You'll call each of the load_* functions with the session as an argument
     

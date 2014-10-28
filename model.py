@@ -1,17 +1,23 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship, backref,scoped_session
+
 
 ENGINE = None
 Session = None
 
+engine = create_engine("sqlite:///ratings.db", echo=False)
+session = scoped_session(sessionmaker(bind=engine,autocommit = False, autoflush=False))
 Base = declarative_base()
+Base.query = session.query_property()
+
+
 
 ### Class declarations go here
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'users' 
 
     id = Column(Integer, primary_key = True, autoincrement=False)
     age = Column(Integer, nullable = True)
@@ -19,6 +25,7 @@ class User(Base):
     occupation = Column(String(64), nullable=True) 
     zipcode = Column(String(15), nullable=True)
 
+# created an attribute called ratings that backref to Rating table
 
 class Movie(Base):
     __tablename__ = 'movies'
@@ -26,6 +33,8 @@ class Movie(Base):
     id = Column(Integer, primary_key = True, autoincrement=False)
     movie_title = Column(String(64))
     release_date = Column(Integer)
+
+# created an attribute called ratings that backref to Rating table
 
 class Rating(Base):
     __tablename__ = 'ratings'
@@ -35,6 +44,9 @@ class Rating(Base):
     movie_id = Column(Integer, ForeignKey('movies.id'))
     rating = Column(Integer, nullable=True)
     timestamp = Column(Integer)
+
+    user = relationship("User", backref=backref("ratings", order_by=id))
+    movie = relationship("Movie", backref=backref("ratings", order_by=id))
 
 def connect():
     global ENGINE
@@ -46,11 +58,12 @@ def connect():
     return Session()
 
 
-def main():
-    """In case we need this for something"""
+# def main():
+#     """In case we need this for something"""
 
-    engine = create_engine("sqlite:///ratings.db", echo=True)
-    Base.metadata.create_all(engine)
+#     engine = create_engine("sqlite:///ratings.db", echo=True)
+#     Base.metadata.create_all(engine)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+

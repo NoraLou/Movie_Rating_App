@@ -3,8 +3,7 @@ import model
 def oldmovies():
 
     query = session.query(model.Movie).filter(model.Movie.movie_title.like('%aladdin%')).all()
-
-    
+  
     for item in query:
         print item.movie_title
 

@@ -14,7 +14,6 @@ def index():
 def signup():
     return render_template("signup.html")
 
-
 @app.route("/newuser", methods=['POST'])
 def new_user():
 
@@ -36,9 +35,6 @@ def new_user():
     model.session.commit()
 
     return render_template("success.html")
-
-
-#redirect method
 
 
 

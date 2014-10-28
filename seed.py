@@ -16,6 +16,7 @@ def load_users(session):
         user.occupation = row[3]
         user.zipcode = row[4]
 
+
         session.add(user)
 
     session.commit()

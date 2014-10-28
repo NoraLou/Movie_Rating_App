@@ -24,6 +24,7 @@ class User(Base):
     gender = Column(String(64), nullable = True)
     occupation = Column(String(64), nullable=True) 
     zipcode = Column(String(15), nullable=True)
+    email = Column(String(64), nullable=True)
 
 # created an attribute called ratings that backref to Rating table
 
@@ -57,13 +58,12 @@ def connect():
 
     return Session()
 
-
 # def main():
 #     """In case we need this for something"""
 
 #     engine = create_engine("sqlite:///ratings.db", echo=True)
 #     Base.metadata.create_all(engine)
 
+
 # if __name__ == "__main__":
 #     main()
-

@@ -1,12 +1,19 @@
 <html>
 
 <body>
-    <form action ="/signup" method="post">
-        Email<input type ="text" id="email"></input><br><br>
-        Age<input type ="text" id="age"></input><br><br>
-        Gender<input type ="text" id="gender"></input><br><br>
-        Occupation <input type ="text" id="occupation"></input><br><br>
-        zipcode <input type ="text" id="zipcode"></input><br><br>
+    {% with message = get_flashed_messages()%}
+    {% if message %}
+        <h1>{{message}}</h1>
+    {% endif %}
+    {% endwith %}
+
+
+    <form action ="/newuser" method="post">
+        Email<input type ="text" name="email"></input><br><br>
+        Age<input type ="text" name="age"></input><br><br>
+        Gender<input type ="text" name="gender"></input><br><br>
+        Occupation <input type ="text" name="occupation"></input><br><br>
+        zipcode <input type ="text" name="zipcode"></input><br><br>
         <input type="submit" value="submit"></input>
     </form>
 

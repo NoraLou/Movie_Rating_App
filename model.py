@@ -19,7 +19,7 @@ Base.query = session.query_property()
 class User(Base):
     __tablename__ = 'users' 
 
-    id = Column(Integer, primary_key = True, autoincrement=False)
+    id = Column(Integer, primary_key = True)
     age = Column(Integer, nullable = True)
     gender = Column(String(64), nullable = True)
     occupation = Column(String(64), nullable=True) 
@@ -31,7 +31,7 @@ class User(Base):
 class Movie(Base):
     __tablename__ = 'movies'
 
-    id = Column(Integer, primary_key = True, autoincrement=False)
+    id = Column(Integer, primary_key = True)
     movie_title = Column(String(64))
     release_date = Column(Integer)
 

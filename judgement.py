@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash, session
 import model
 
 
 app = Flask(__name__)
+app.secret_key = 'some_secret'
 
 @app.route("/")
 def index():
@@ -11,23 +12,34 @@ def index():
 
 @app.route("/signup")
 def signup():
-
     return render_template("signup.html")
 
 
-@app.route("/newuser" method=['POST'])
+@app.route("/newuser", methods=['POST'])
 def new_user():
 
-    email = request.form("email")
-    age = request.form("age")
-    gender = request.form("gender")
-    occupation = request.form("occupation")
-    zipcode = request.form("zipcode")
+    u = model.User()
 
-    u = User(age, gender, occupation, zipcode, email)
+    #python needs variables 'name' attr and not id
+    u.email = request.form.get('email')
+    u.age = request.form.get('age')
+    u.gender = request.form.get('gender')
+    u.occupation = request.form.get('occupation')
+    u.zipcode = request.form.get('zipcode')
+
+    if u.email == '':
+        flash("Your email is required to sign up.")
+        return redirect("/signup")
+
+    # save user to the database
+    model.session.add(u)
+    model.session.commit()
+
+    return render_template("success.html")
+
+
 #redirect method
 
-    pass 
 
 
 if __name__ == "__main__":

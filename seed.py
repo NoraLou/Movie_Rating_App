@@ -7,8 +7,6 @@ def load_users(session):
 
     for row in f1:
 
-        # '7', 'M', 'administrator', '57', '91344'
-
         user = model.User()
         user.id = int(row[0])
         user.age = int(row[1])

@@ -13,7 +13,6 @@ Base = declarative_base()
 Base.query = session.query_property()
 
 
-
 ### Class declarations go here
 
 class User(Base):
@@ -25,6 +24,7 @@ class User(Base):
     occupation = Column(String(64), nullable=True) 
     zipcode = Column(String(15), nullable=True)
     email = Column(String(64), nullable=True)
+    password = Column(String(64), nullable=True)
 
 # created an attribute called ratings that backref to Rating table
 

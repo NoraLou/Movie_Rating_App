@@ -1,0 +1,35 @@
+<html>
+<body>
+
+{% with message = get_flashed_messages()%}
+    {% if message %}
+        <h1>{{message}}</h1>
+    {% endif %}
+    {% endwith %}
+    
+<h1>Welcome to the Judgemental Eye Movie Ratings App</h1>
+
+<br><br>
+
+Sign up here for services: <br><br>
+<a href='/signup'>Click here</a><br><br>
+
+
+Log in here:<br><br>
+
+<a href='/login'>Click Here to Login</a><br><br>
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+</html>

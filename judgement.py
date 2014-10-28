@@ -7,8 +7,7 @@ app.secret_key = 'some_secret'
 
 @app.route("/")
 def index():
-    user_list = model.session.query(model.User).limit(5).all()
-    return render_template("user_list.html", users=user_list)
+    return render_template("index.html")
 
 @app.route("/signup")
 def signup():
@@ -34,7 +33,14 @@ def new_user():
     model.session.add(u)
     model.session.commit()
 
-    return render_template("success.html")
+    flash("Success! You have signed up.")
+    return render_template("index.html")
+
+@app.route("/login")
+    def login():
+
+    # query the database user info (email and password)
+    #
 
 
 

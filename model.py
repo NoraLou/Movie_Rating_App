@@ -9,6 +9,7 @@ Session = None
 
 engine = create_engine("sqlite:///ratings.db", echo=False)
 session = scoped_session(sessionmaker(bind=engine,autocommit = False, autoflush=False))
+# remember that session in sqlalchemy is different from session in Flask, in SQLAlchemy Session is a cursor for the data
 Base = declarative_base()
 Base.query = session.query_property()
 

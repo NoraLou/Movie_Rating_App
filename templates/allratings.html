@@ -1,0 +1,15 @@
+<html>
+<body>
+
+<h1>Movies to Rate</h1>
+
+<a href="/">Go Back Home</a><br><br>
+
+{% for movie in movies %}
+{{movie.movie_title}}, {{movie.release_date}}<br><br>
+{% endfor %}
+
+
+
+</body>
+</html>

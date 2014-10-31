@@ -1,0 +1,15 @@
+<html>
+<body>
+
+<h1> User #{{ user_id }} Movie Ratings</h1>
+
+<a href="/">Go Back Home</a><br><br>
+
+{% for rating in ratings %}
+{{rating.movie.movie_title}}, {{rating.rating}}<br><br>
+{% endfor %}
+
+
+
+</body>
+</html>

@@ -44,7 +44,6 @@ def login():
     check_email = request.form.get('user_email')
     check_password = request.form.get('user_password')
 
-
     # query the database user info (email and password)
 
     user = model.session.query(model.User).filter_by(email = check_email).filter_by(password = check_password).first()
@@ -53,15 +52,55 @@ def login():
 
         # add the user id to the session
         session['user'] = user.id
-        flash("Your logged in!!!!")
-        return redirect("/")
-        
+        flash("You are logged in!")
+        return redirect("/userpersonalratings") 
+
     else:
 
         flash('You don\'t seem to be signed up. Please sign up below')
         return redirect('/')
 
+@app.route("/ratemovies", methods=['GET', 'POST'])
+def personal_ratings():
+    
+    #personal_ratings = model.session.query(model.Rating).filter_by(user_id = session['user']).all()
 
+    #user_id = session['user']
+
+    movie_rating = request.form.get('movierating')
+
+    movies = model.session.query(model.Movie).limit(50)
+
+    print "*************************"
+    print movie_rating
+    print "*************************"
+
+    
+    return render_template("ratemovies.html", movies=movies)
+
+
+
+@app.route("/allusers")
+def show_all_users():
+    users = model.session.query(model.User).all()
+    return render_template('user_list.html', users = users)
+
+@app.route('/usermovieratings')
+def show_user_movie_ratings():
+    #get the user id
+    user_id = request.args.get("user_id")
+
+    #query the database Ratings for movies & ratings filtered by user id
+
+    user_ratings = model.session.query(model.Rating).filter_by(user_id = user_id).all()
+
+    # print (dir(user_ratings[0]))
+
+    #return objects from query to the template
+
+    return render_template('usermovieratings.html', ratings=user_ratings, user=user_id)
+
+    
 
 
 
